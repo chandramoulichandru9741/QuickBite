@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Product List</title>
+        <link rel="stylesheet" href="/index.css">
+    </head>
+    
+<body>
+    <img src="https://goodshelf.app/assets/images/logo.png" alt="logo">
+    <ul>
+        <% var productsBySection = {}; %>
+        
+        <% for (const product of products) { %>
+            <% var sectionName = product.sectionName; %>
+            
+            <% if (!(sectionName in productsBySection)) { %>
+                <% productsBySection[sectionName] = []; %>
+            <% } %>
+            
+            <% productsBySection[sectionName].push(product); %>
+        <% } %>
+        
+        <% for (const sectionName in productsBySection) { %>
+            <li>
+                <h2 class="section-name"><%= sectionName %></h2>
+                <ul class="product-list">
+                    <% for (const product of productsBySection[sectionName]) { %>
+                        <li class="product">
+                            <img src="<%- product.imageURL %>" alt="<%= product.productName %> Image">
+                            <div class="product-details">
+                                <p class="name"> <%= product.productName %></p>
+                                <p class="oneLiner"> <%= product.oneLiner %></p>
+                            </div>
+                            <p class="price-quantity">
+                                <span class="price">₹<%= product.price %> /</span>
+                                <span class="quantity"><%= product.quantity %>kg</span>
+                                <img src="https://cdn-icons-png.flaticon.com/128/401/401061.png" alt="+">
+                            </p>
+                        </li>
+                    <% } %>
+                </ul>
+                
+                
+            </li>
+        <% } %>
+    </ul>
+</body>
+</html>
